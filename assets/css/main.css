@@ -211,6 +211,7 @@
 
 	p {
 		margin: 0 0 1.5em 0;
+		color:black;
 	}
 
 	h1, h2, h3, h4, h5, h6 {
@@ -227,15 +228,18 @@
 	h1 {
 		font-size: 1.85em;
 		letter-spacing: 0.22em;
-		margin: 0 0 0.525em 0;
+		margin: 0 0 0.2em 0;
+		color:black;
 	}
 
 	h2 {
 		font-size: 1.25em;
+		color:black;
 	}
 
 	h3 {
 		font-size: 1em;
+		color:black;
 	}
 
 	h4 {
@@ -273,7 +277,7 @@
 	hr {
 		border: 0;
 		border-bottom: solid 1px #c8cccf;
-		margin: 2.5em 0;
+		margin: 2em 0;
 	}
 
 /* Form */
@@ -811,7 +815,7 @@
 		text-align: center;
 		text-decoration: none;
 		white-space: nowrap;
-		margin: 5px;
+		margin: 5px 5px 10px 5px;
 	}
 
 		input[type="submit"]:hover,
@@ -1059,4 +1063,22 @@
 	border-color: #FF5809;
 	color: #FF5809 !important;
 	background-color:rgb(255, 176, 97,0.3);
+}
+
+.button.icon.exam{
+	height:2em;
+	line-height:2em;
+	font-size:100%;
+	padding: 0 0.8em;
+	border-radius: 20px;
+	color: red;
+	border: solid 1px rgb(255, 117, 117,0.8);
+	margin: 10px 0 0 0;
+	background-color:rgb(255, 117, 117,0.2);
+}
+
+.button.icon.exam:hover {
+	border-color: red;
+	color: red !important;
+	background-color:rgb(255, 155, 117,0.5);
 }

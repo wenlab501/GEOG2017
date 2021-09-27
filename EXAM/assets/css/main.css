@@ -210,7 +210,9 @@
 	}
 
 	p {
-		margin: 0 0 1.5em 0;
+		margin: 0 0 0 0;
+		color:black;
+		font-size:80%;
 	}
 
 	h1, h2, h3, h4, h5, h6 {
@@ -227,15 +229,20 @@
 	h1 {
 		font-size: 1.85em;
 		letter-spacing: 0.22em;
-		margin: 0 0 0.525em 0;
+		color:black;
+		margin:0 0 0.2em 0;
 	}
 
 	h2 {
 		font-size: 1.25em;
+		color:black;
+		margin:25px 0 25px 0;
 	}
 
 	h3 {
 		font-size: 1em;
+		color:black;
+		margin:0 0 0 0;
 	}
 
 	h4 {
@@ -811,7 +818,7 @@
 		text-align: center;
 		text-decoration: none;
 		white-space: nowrap;
-		margin: 5px;
+		margin: 0 0 5px 0;
 	}
 
 		input[type="submit"]:hover,
@@ -1032,6 +1039,8 @@
 		body.is-ie #wrapper {
 			height: 100%;
 		}
+		
+#title{font-size:100%;}
 
 .blue{color: blue;}
 .blue:hover {
@@ -1060,3 +1069,23 @@
 	color: grey !important;
 	background-color:rgb(149, 149, 149,0.3);
 }
+
+.button.icon.exam{
+	height:2em;
+	line-height:2em;
+	font-size:100%;
+	padding: 0 0.8em;
+	border-radius: 20px;
+	color: red;
+	border: solid 1px rgb(255, 117, 117,0.8);
+	margin: 10px 0 0 0;
+	background-color:rgb(255, 117, 117,0.2);
+}
+
+.button.icon.exam:hover {
+	border-color: red;
+	color: red !important;
+	background-color:rgb(255, 155, 117,0.5);
+}
+
+.w3-row{margin:10px 0 15px 0}

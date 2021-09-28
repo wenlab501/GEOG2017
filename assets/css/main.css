@@ -1058,6 +1058,13 @@
 	background-color:rgb(255, 117, 117,0.3);
 }
 
+.grey{color:grey;}
+.grey:hover {
+	border-color: grey;
+	color: grey !important;
+	background-color:rgb(149, 149, 149,0.3);
+}
+
 .orange{color:#FF5809;}
 .orange:hover {
 	border-color: #FF5809;

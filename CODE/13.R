@@ -17,6 +17,7 @@
 install.packages("dbscan")
 library("dbscan")
 
+data <- read.table("Data/tpedata.csv", header=TRUE, sep=",")
 Pts0 <- cbind(data[,2], data[,3])
 
 # Using k-nn distance as the eps

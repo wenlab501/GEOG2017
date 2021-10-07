@@ -1055,7 +1055,7 @@
 		-ms-transition: opacity 1s ease, -ms-transform 1s ease;
 		transition: opacity 1s ease, transform 1s ease;
 		padding: 4.5em 3em 3em 3em ;
-		background:	#FFFCEC;
+		background:	#FAFFF0;
 		border-radius: 4px;
 		cursor: default;
 		max-width: 100%;
@@ -1133,10 +1133,10 @@
 	background-color:rgb(255, 117, 117,0.3);
 }
 
-.grey{color:grey;}
+.grey{color:dimgrey;}
 .grey:hover {
 	border-color: grey;
-	color: grey !important;
+	color: dimgrey !important;
 	background-color:rgb(149, 149, 149,0.3);
 }
 

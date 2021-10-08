@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang='zh-TW'>
+  <head>
+  <title>空間分析：圖資清單</title>
+	<meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
+    <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css' integrity='sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO' crossorigin='anonymous'>
+    <script src='https://code.jquery.com/jquery-3.3.1.slim.min.js' integrity='sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo' crossorigin='anonymous'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js' integrity='sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49' crossorigin='anonymous'></script>
+    <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js' integrity='sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy' crossorigin='anonymous'></script>
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <base target="_blank">
+    
+	<style>
+      .row{margin-bottom: 20px;}
+	  h1{padding-top:10px}
+	  h2{font-weight:bold;}
+	  .main{text-align:center;}
+	  .left{text-align:left}
+	  .table td .table th{vertical-align:middle}
+	  @media (min-width: 1200px){.container {max-width: 90%;}}
+	  shp, shx, dbf, prj, cpg, qrj, sbn, sbx, csv, rdt{border-radius:15%;padding:0 3px 0 1px}
+	  poly, point, coord, twd, na, TWN, TPE, TNN{border-radius:10%;padding:0 3px 0 3px}
+	  .red, shp, shx, dbf, TWN {background-color:rgba(255,0,26,0.2);}
+	  .yellow, prj, cpg, qrj, TNN {background-color:rgba(233,168,0,0.2)}
+	  .gray, sbn, sbx, na {background-color:rgba(155,154,151,0.4)}
+	  .green, csv, twd {background-color:rgba(0,135,107,0.2)}
+	  .blue, rdt, poly {background-color:rgba(0,120,223,0.2)}
+	  .purple, point {background-color:rgba(103,36,222,0.2)}
+	  .brown, coord {background-color:rgba(140,46,0,0.2)}
+	  .orange, TPE {background-color:rgba(245,93,0,0.2)}
+	  .pink {background-color:rgba(221,0,129,0.2)}
+    </style>
+  </head>
+  <body>
+		
+	<div class='main'>
+	  <h1>空間分析</h1>
+	  <h2>課程圖資清單</h2>
+	  <p>課程提供之圖資僅供練習使用</p>
+	</div>
+
+	
+
+    <div class='container' style="width=2000px">
+      <div class='row'>
+        <table class='table'>
+			<tr><th>檔案名稱</th><th>副檔名</th><th>空間型態</th><th>座標系統</th><th>資料範圍</th><th>資料名稱</th><th>備註</th></tr>
+			<tr><td><B/>Popn_TWN2</td>
+				<td><shp></shp> <shx></shx> <dbf></dbf> <prj></prj> <qrj></qrj></td>
+				<td><poly></poly></td>
+				<td><twd></twd></td>
+				<td><TWN></TWN></td>
+				<td>鄉鎮市區三級年齡及性別人口統計</td>
+				<td></td></tr>
+			<tr><td><B/>Taiwan_county</td>
+				<td><shp></shp> <shx></shx> <dbf></dbf> <prj></prj> <cpg></cpg> <qrj></qrj></td>
+				<td><poly></poly></td>
+				<td><twd></twd></td>
+				<td><TWN></TWN></td>
+				<td>縣市性別人口統計</td>
+				<td>無金門縣、連江縣</td></tr>
+			<tr><td><B/>Taipei_Vill</td>
+				<td><shp></shp> <shx></shx> <dbf></dbf> <prj></prj> <qrj></qrj></td>
+				<td><poly></poly></td>
+				<td><twd></twd></td>
+				<td><TPE></TPE></td>
+				<td>村里人口統計</td>
+				<td></td></tr>
+			<tr><td><B/>Taipei_village</td>
+				<td><shp></shp> <shx></shx> <dbf></dbf> <prj></prj> <cpg></cpg></td>
+				<td><poly></poly></td>
+				<td><twd></twd></td>
+				<td><TPE></TPE></td>
+				<td>村里五歲年齡組人口統計</td>
+				<td></td></tr>
+			<tr><td><B/>TPE</td>
+				<td><shp></shp> <shx></shx> <dbf></dbf> <prj></prj> <sbn></sbn> <sbx></sbx></td>
+				<td><poly></poly></td>
+				<td><twd></twd></td>
+				<td><TPE></TPE></td>
+				<td>市界範圍</td>
+				<td>無欄位</td></tr>
+			<tr><td><B/>TainanCounty</td>
+				<td><shp></shp> <shx></shx> <dbf></dbf> <prj></prj></td>
+				<td><poly></poly></td>
+				<td><twd></twd></td>
+				<td><TNN></TNN></td>
+				<td>市界範圍</td>
+				<td>無欄位</td></tr>
+			<tr><td><B/>flood</td>
+				<td><shp></shp> <shx></shx> <dbf></dbf> <prj></prj></td>
+				<td><poly></poly></td>
+				<td><twd></twd></td>
+				<td><TPE></TPE></td>
+				<td>淹水範圍</td>
+				<td>配合課程【3】實習</td></tr>
+			<tr><td><B/>EPA_STN1</td>
+				<td><shp></shp> <shx></shx> <dbf></dbf> <prj></prj> <qrj></qrj></td>
+				<td><point></point></td>
+				<td><twd></twd></td>
+				<td><TPE></TPE></td>
+				<td>環保署空氣品質測站點位資料</td>
+				<td></td></tr>
+			<tr><td><B/>Tpe_Fastfood</td>
+				<td><shp></shp> <shx></shx> <dbf></dbf> <prj></prj> <cpg></cpg> <qrj></qrj></td>
+				<td><point></point></td>
+				<td><twd></twd></td>
+				<td><TPE></TPE></td>
+				<td>速食店點位</td>
+				<td></td></tr>
+			<tr><td><B/>FASTFOOD</td>
+				<td><shp></shp> <shx></shx> <dbf></dbf> <prj></prj> <cpg></cpg> <qrj></qrj></td>
+				<td><point></point></td>
+				<td><twd></twd></td>
+				<td><TPE></TPE></td>
+				<td>速食店點位</td>
+				<td>欄位僅有ID，點位同Tpe_Fastfood</td></tr>
+			<tr><td><B/>SCHOOL</td>
+				<td><shp></shp> <shx></shx> <dbf></dbf> <prj></prj> <cpg></cpg> <qrj></qrj></td>
+				<td><point></point></td>
+				<td><twd></twd></td>
+				<td><TPE></TPE></td>
+				<td>公私立國小點位</td>
+				<td></td></tr>
+			<tr><td><B/>Schools</td>
+				<td><shp></shp> <shx></shx> <dbf></dbf> <prj></prj> <cpg></cpg></td>
+				<td><point></point></td>
+				<td><twd></twd></td>
+				<td><TNN></TNN></td>
+				<td>各級學校點位</td>
+				<td></td></tr>
+			<tr><td><B/>Tempcycle_twd97</td>
+				<td><shp></shp> <shx></shx> <dbf></dbf> <prj></prj> <sbn></sbn> <sbx></sbx></td>
+				<td><point></point></td>
+				<td><twd></twd></td>
+				<td><TWN></TWN></td>
+				<td>寺廟點位</td>
+				<td></td></tr>
+			<tr><td><B/>point_event</td>
+				<td><shp></shp> <shx></shx> <dbf></dbf> <sbn></sbn> <sbx></sbx></td>
+				<td><point></point></td>
+				<td><na></na></td>
+				<td><TWN></TWN></td>
+				<td>登革熱病例點位時空資料</td>
+				<td>配合課程【4】實習<br>資料中有提供座標，CRS為<twd></twd>，學生可以練習設定</td></tr>
+			<tr><td><B/>point1</td>
+				<td><csv></csv></td>
+				<td><coord></coord></td>
+				<td><twd></twd></td>
+				<td><TPE></TPE></td>
+				<td>DualKDE練習資料點1</td>
+				<td>配合課程【8】</td></tr>
+			<tr><td><B/>point2</td>
+				<td><csv></csv></td>
+				<td><coord></coord></td>
+				<td><twd></twd></td>
+				<td><TPE></TPE></td>
+				<td>DualKDE練習資料點2</td>
+				<td>配合課程【8】</td></tr>
+			<tr><td><B/>Sample</td>
+				<td><rdt></rdt></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td>R空間繪圖範例資料1</td>
+				<td>配合課程【1】</td></tr>
+			<tr><td><B/>Sample2</td>
+				<td><rdt></rdt></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td>R空間繪圖範例資料2</td>
+				<td>配合課程【2】</td></tr>
+			<tr><td><B/>Sample3</td>
+				<td><rdt></rdt></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td>R空間繪圖範例資料3</td>
+				<td>配合課程【3】</td></tr>
+		  </table>
+      </div>
+	</div>
+  </body>
+  
+  <script>
+		function customTag(tagName, fn){Array.from(document.getElementsByTagName(tagName)).forEach(fn);}
+
+		function shp(element) {element.innerHTML = '.shp';}
+		function shx(element) {element.innerHTML = '.shx';} 		
+		function dbf(element) {element.innerHTML = '.dbf';}
+		function prj(element) {element.innerHTML = '.prj';} 		
+		function cpg(element) {element.innerHTML = '.cpg';}
+		function qrj(element) {element.innerHTML = '.qrj';}
+		function sbx(element) {element.innerHTML = '.sbx';}
+		function sbn(element) {element.innerHTML = '.sbn';}
+		function csv(element) {element.innerHTML = '.csv';}
+		function rdt(element) {element.innerHTML = '.Rdata';}
+		function poly(element) {element.innerHTML = '面資料';}  		
+		function point(element) {element.innerHTML = '點資料';}  		
+		function coord(element) {element.innerHTML = '點座標';}
+		function twd(element) {element.innerHTML = '3826';}  		
+		function na(element) {element.innerHTML = '無';}  
+		function TWN(element) {element.innerHTML = '全台灣';}
+		function TPE(element) {element.innerHTML = '台北市';}
+		function TNN(element) {element.innerHTML = '台南市';}
+
+		customTag('shp', shp);
+		customTag('shx', shx);
+		customTag('dbf', dbf);
+		customTag('prj', prj);
+		customTag('cpg', cpg);
+		customTag('qrj', qrj);
+		customTag('sbx', sbx);
+		customTag('sbn', sbn);
+		customTag('csv', csv);
+		customTag('rdt', rdt);
+		customTag('poly', poly);
+		customTag('point', point);
+		customTag('coord', coord);
+		customTag('twd', twd);
+		customTag('na', na);
+		customTag('TWN', TWN);
+		customTag('TPE', TPE);
+		customTag('TNN', TNN);
+		
+	</script>
+</html>

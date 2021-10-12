@@ -183,7 +183,7 @@
 				</tr>
 				<tr>
 					<td><a href=""><button>Sample</button></a></td>
-					<td><rdt></rdt></td>
+					<td><Rdata></Rdata></td>
 					<td></td>
 					<td></td>
 					<td></td>
@@ -192,7 +192,7 @@
 				</tr>
 				<tr>
 					<td><a href=""><button>Sample2</button></a></td>
-					<td><rdt></rdt></td>
+					<td><Rdata></Rdata></td>
 					<td></td>
 					<td></td>
 					<td></td>
@@ -201,7 +201,7 @@
 				</tr>
 				<tr>
 					<td><a href=""><button>Sample3</button></a></td>
-					<td><rdt></rdt></td>
+					<td><Rdata></Rdata></td>
 					<td></td>
 					<td></td>
 					<td></td>
@@ -222,7 +222,7 @@
 		x2=x.split(",");
 		if(x2.includes(".shp")) ext=ext+"<shp></shp>";
 		
-		a='<tr><td><a href=""><button>'+arary[0]+'</button></a></td><td>'+ext+'</rdt></td><td></td><td></td><td></td><td>R空間繪圖範例資料3</td><td>配合課程【3】</td></tr>';
+		a='<tr><td><a href=""><button>'+arary[0]+'</button></a></td><td>'+ext+'</Rdata></td><td></td><td></td><td></td><td>R空間繪圖範例資料3</td><td>配合課程【3】</td></tr>';
 		$(table).find('tbody').append(a);
 		
 		function customTag(tagName, fn){Array.from(document.getElementsByTagName(tagName)).forEach(fn);}
@@ -236,7 +236,7 @@
 		function sbx(element) {element.innerHTML = '.sbx';}
 		function sbn(element) {element.innerHTML = '.sbn';}
 		function csv(element) {element.innerHTML = '.csv';}
-		function rdt(element) {element.innerHTML = '.Rdata';}
+		function Rdata(element) {element.innerHTML = '.Rdata';}
 		function poly(element) {element.innerHTML = '面資料';}  		
 		function point(element) {element.innerHTML = '點資料';}  		
 		function coord(element) {element.innerHTML = '點座標';}
@@ -255,7 +255,7 @@
 		customTag('sbx', sbx);
 		customTag('sbn', sbn);
 		customTag('csv', csv);
-		customTag('rdt', rdt);
+		customTag('Rdata', Rdata);
 		customTag('poly', poly);
 		customTag('point', point);
 		customTag('coord', coord);
@@ -284,7 +284,7 @@
 
     $.ajax({
         type: "GET",
-        url: "https://raw.githubusercontent.com/wenlab501/GEOG2017/main/DATA/%E5%9C%96%E8%B3%87%E6%B8%85%E5%96%AE.csv",
+        url: "https://raw.githubusercontent.com/wenlab501/GEOG2017/main/DATA/data.csv",
         success: function (data) {
             $('body').append(arrayToTable(Papa.parse(data).data));
         }

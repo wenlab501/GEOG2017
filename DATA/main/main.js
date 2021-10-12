@@ -43,7 +43,7 @@
 				else area=row[4];
 				
 				
-				let txt = '<tr>'+'<td><a href="'+'"><button>'+row[0]+'</button></a></td>'+
+				let txt = '<tr>'+'<td><a href="'+row[7]+'"><button>'+row[0]+'</button></a></td>'+
 								'<td>'+ext+'</td>'+
 								'<td>'+datatype+'</td>'+
 								'<td>'+crs+'</td>'+

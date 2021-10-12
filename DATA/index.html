@@ -284,7 +284,7 @@
 
     $.ajax({
         type: "GET",
-        url: "https://raw.githubusercontent.com/wenlab501/GEOG2017/main/DATA/data.csv",
+        url: "https://raw.githubusercontent.com/wenlab501/GEOG2017/main/DATA/%E5%9C%96%E8%B3%87%E6%B8%85%E5%96%AE.csv",
         success: function (data) {
             $('body').append(arrayToTable(Papa.parse(data).data));
         }

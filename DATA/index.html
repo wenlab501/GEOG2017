@@ -1,19 +1,18 @@
 <!DOCTYPE html>
 <html lang='zh-TW'>
   <head>
-  <title>空間分析：圖資清單</title>
+	<title>空間分析：圖資清單</title>
 	<meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
     <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css' integrity='sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO' crossorigin='anonymous'>
     <script src='https://code.jquery.com/jquery-3.3.1.slim.min.js' integrity='sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo' crossorigin='anonymous'></script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js' integrity='sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49' crossorigin='anonymous'></script>
     <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js' integrity='sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy' crossorigin='anonymous'></script>
-    <link rel="stylesheet" href="css.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/4.1.2/papaparse.js"></script>
+	<script src="main/main.js"></script>
+	<link rel="stylesheet" href="main/main.css">
 	<base target="_blank">
-    
-
   </head>
   <body>
-		
 	<div class='main'>
 	  <h1>空間分析</h1>
 	  <h2>課程圖資清單</h2>
@@ -25,269 +24,24 @@
 			<p><a href="."><button>📁 下載所有圖資</button></button></a> 或 點選下方檔案名稱進行下載</p>
 		</div>
 
-      <div class='row'>
-        <table class='table' id='table'>
-			<thead>
-				<tr>
-					<th>檔案名稱</th>
-					<th>副檔名</th>
-					<th>空間型態</th>
-					<th>座標系統</th>
-					<th>資料範圍</th>
-					<th>資料名稱</th>
-					<th>備註</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td><a href=""><button>Popn_TWN2</button></button></a></td>
-					<td><shp></shp> <shx></shx> <dbf></dbf> <prj></prj> <qrj></qrj></td>
-					<td><poly></poly></td>
-					<td><twd></twd></td>
-					<td><TWN></TWN></td>
-					<td>鄉鎮市區三級年齡及性別人口統計</td>
-					<td></td>
-				</tr>
-				<tr>
-					<td><a href=""><button>Taiwan_county</button></a></td>
-					<td><shp></shp> <shx></shx> <dbf></dbf> <prj></prj> <cpg></cpg> <qrj></qrj></td>
-					<td><poly></poly></td>
-					<td><twd></twd></td>
-					<td><TWN></TWN></td>
-					<td>縣市性別人口統計</td>
-					<td>無金門縣、連江縣</td>
-				</tr>
-				<tr>
-					<td><a href=""><button>Taipei_Vill</button></a></td>
-					<td><shp></shp> <shx></shx> <dbf></dbf> <prj></prj> <qrj></qrj></td>
-					<td><poly></poly></td>
-					<td><twd></twd></td>
-					<td><TPE></TPE></td>
-					<td>村里人口統計</td>
-					<td></td>
-				</tr>
-				<tr>
-					<td><a href=""><button>Taipei_village</button></a></td>
-					<td><shp></shp> <shx></shx> <dbf></dbf> <prj></prj> <cpg></cpg></td>
-					<td><poly></poly></td>
-					<td><twd></twd></td>
-					<td><TPE></TPE></td>
-					<td>村里五歲年齡組人口統計</td>
-					<td></td>
-				</tr>
-				<tr>
-					<td><a href=""><button>TPE</button></a></td>
-					<td><shp></shp> <shx></shx> <dbf></dbf> <prj></prj> <sbn></sbn> <sbx></sbx></td>
-					<td><poly></poly></td>
-					<td><twd></twd></td>
-					<td><TPE></TPE></td>
-					<td>市界範圍</td>
-					<td>無欄位</td>
-				</tr>
-				<tr>
-					<td><a href=""><button>TainanCounty</button></a></td>
-					<td><shp></shp> <shx></shx> <dbf></dbf> <prj></prj></td>
-					<td><poly></poly></td>
-					<td><twd></twd></td>
-					<td><TNN></TNN></td>
-					<td>市界範圍</td>
-					<td>無欄位</td>
-				</tr>
-				<tr>
-					<td><a href=""><button>flood</button></a></td>
-					<td><shp></shp> <shx></shx> <dbf></dbf> <prj></prj></td>
-					<td><poly></poly></td>
-					<td><twd></twd></td>
-					<td><TPE></TPE></td>
-					<td>淹水範圍</td>
-					<td>配合課程【3】實習</td></tr>
-				<tr>
-					<td><a href=""><button>EPA_STN1</button></a></td>
-					<td><shp></shp> <shx></shx> <dbf></dbf> <prj></prj> <qrj></qrj></td>
-					<td><point></point></td>
-					<td><twd></twd></td>
-					<td><TPE></TPE></td>
-					<td>環保署空氣品質測站點位資料</td>
-					<td></td>
-				</tr>
-				<tr>
-					<td><a href=""><button>Tpe_Fastfood</button></a></td>
-					<td><shp></shp> <shx></shx> <dbf></dbf> <prj></prj> <cpg></cpg> <qrj></qrj></td>
-					<td><point></point></td>
-					<td><twd></twd></td>
-					<td><TPE></TPE></td>
-					<td>速食店點位</td>
-					<td></td>
-				</tr>
-				<tr>
-					<td><a href=""><button>FASTFOOD</button></a></td>
-					<td><shp></shp> <shx></shx> <dbf></dbf> <prj></prj> <cpg></cpg> <qrj></qrj></td>
-					<td><point></point></td>
-					<td><twd></twd></td>
-					<td><TPE></TPE></td>
-					<td>速食店點位</td>
-					<td>欄位僅有ID，點位同Tpe_Fastfood</td>
-				</tr>
-				<tr>
-					<td><a href=""><button>SCHOOL</button></a></td>
-					<td><shp></shp> <shx></shx> <dbf></dbf> <prj></prj> <cpg></cpg> <qrj></qrj></td>
-					<td><point></point></td>
-					<td><twd></twd></td>
-					<td><TPE></TPE></td>
-					<td>公私立國小點位</td>
-					<td></td>
-				</tr>
-				<tr>
-					<td><a href=""><button>Schools</button></a></td>
-					<td><shp></shp> <shx></shx> <dbf></dbf> <prj></prj> <cpg></cpg></td>
-					<td><point></point></td>
-					<td><twd></twd></td>
-					<td><TNN></TNN></td>
-					<td>各級學校點位</td>
-					<td></td></tr>
-				<tr>
-					<td><a href=""><button>Tempcycle_twd97</button></a></td>
-					<td><shp></shp> <shx></shx> <dbf></dbf> <prj></prj> <sbn></sbn> <sbx></sbx></td>
-					<td><point></point></td>
-					<td><twd></twd></td>
-					<td><TWN></TWN></td>
-					<td>寺廟點位</td>
-					<td></td>
-				</tr>
-				<tr>
-					<td><a href=""><button>point_event</button></a></td>
-					<td><shp></shp> <shx></shx> <dbf></dbf> <sbn></sbn> <sbx></sbx></td>
-					<td><point></point></td>
-					<td><na></na></td>
-					<td><TWN></TWN></td>
-					<td>登革熱病例點位時空資料</td>
-					<td>配合課程【4】實習<br>資料中有提供座標，CRS為<twd></twd>，學生可以練習設定</td>
-				</tr>
-				<tr>
-					<td><a href=""><button>point1</button></a></td>
-					<td><csv></csv></td>
-					<td><coord></coord></td>
-					<td><twd></twd></td>
-					<td><TPE></TPE></td>
-					<td>DualKDE練習資料點1</td>
-					<td>配合課程【8】</td>
-				</tr>
-				<tr>
-					<td><a href=""><button>point2</button></a></td>
-					<td><csv></csv></td>
-					<td><coord></coord></td>
-					<td><twd></twd></td>
-					<td><TPE></TPE></td>
-					<td>DualKDE練習資料點2</td>
-					<td>配合課程【8】</td>
-				</tr>
-				<tr>
-					<td><a href=""><button>Sample</button></a></td>
-					<td><Rdata></Rdata></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td>R空間繪圖範例資料1</td>
-					<td>配合課程【1】</td>
-				</tr>
-				<tr>
-					<td><a href=""><button>Sample2</button></a></td>
-					<td><Rdata></Rdata></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td>R空間繪圖範例資料2</td>
-					<td>配合課程【2】</td>
-				</tr>
-				<tr>
-					<td><a href=""><button>Sample3</button></a></td>
-					<td><Rdata></Rdata></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td>R空間繪圖範例資料3</td>
-					<td>配合課程【3】</td>
-				</tr>
-			  </tbody>
-		  </table>
-      </div>
+		<div class='row'>
+			<table class='table' id='table'>
+				<thead>
+					<tr>
+						<th>檔案名稱</th>
+						<th>副檔名</th>
+						<th>空間型態</th>
+						<th>座標系統</th>
+						<th>資料範圍</th>
+						<th>資料名稱</th>
+						<th>備註</th>
+					</tr>
+				</thead>
+				<tbody>
+					<!--AJAX內容-->
+				</tbody>
+			</table>
+		</div>
 	</div>
-  </body>
-  
-  <script>
-		
-		arary=['Popn_TWN2',".dbf,.prj,.qpj,.shp,.shx","面資料","3826","全台灣","鄉鎮市區三級年齡及性別人口統計","",];
-		ext="";
-		x=arary[1];
-		x2=x.split(",");
-		if(x2.includes(".shp")) ext=ext+"<shp></shp>";
-		
-		a='<tr><td><a href=""><button>'+arary[0]+'</button></a></td><td>'+ext+'</Rdata></td><td></td><td></td><td></td><td>R空間繪圖範例資料3</td><td>配合課程【3】</td></tr>';
-		$(table).find('tbody').append(a);
-		
-		function customTag(tagName, fn){Array.from(document.getElementsByTagName(tagName)).forEach(fn);}
-
-		function shp(element) {element.innerHTML = '.shp';}
-		function shx(element) {element.innerHTML = '.shx';} 		
-		function dbf(element) {element.innerHTML = '.dbf';}
-		function prj(element) {element.innerHTML = '.prj';} 		
-		function cpg(element) {element.innerHTML = '.cpg';}
-		function qrj(element) {element.innerHTML = '.qrj';}
-		function sbx(element) {element.innerHTML = '.sbx';}
-		function sbn(element) {element.innerHTML = '.sbn';}
-		function csv(element) {element.innerHTML = '.csv';}
-		function Rdata(element) {element.innerHTML = '.Rdata';}
-		function poly(element) {element.innerHTML = '面資料';}  		
-		function point(element) {element.innerHTML = '點資料';}  		
-		function coord(element) {element.innerHTML = '點座標';}
-		function twd(element) {element.innerHTML = '3826';}  		
-		function na(element) {element.innerHTML = '無';}  
-		function TWN(element) {element.innerHTML = '全台灣';}
-		function TPE(element) {element.innerHTML = '台北市';}
-		function TNN(element) {element.innerHTML = '台南市';}
-
-		customTag('shp', shp);
-		customTag('shx', shx);
-		customTag('dbf', dbf);
-		customTag('prj', prj);
-		customTag('cpg', cpg);
-		customTag('qrj', qrj);
-		customTag('sbx', sbx);
-		customTag('sbn', sbn);
-		customTag('csv', csv);
-		customTag('Rdata', Rdata);
-		customTag('poly', poly);
-		customTag('point', point);
-		customTag('coord', coord);
-		customTag('twd', twd);
-		customTag('na', na);
-		customTag('TWN', TWN);
-		customTag('TPE', TPE);
-		customTag('TNN', TNN);
-		
-	</script>
-	
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/4.1.2/papaparse.js"></script>
-<script>
-    function arrayToTable(tableData) {
-        var table = $('<table></table>');
-        $(tableData).each(function (i, rowData) {
-            var row = $('<tr></tr>');
-            $(rowData).each(function (j, cellData) {
-                row.append($('<td>'+cellData+'</td>'));
-            });
-            table.append(row);
-        });
-        return table;
-    }
-
-    $.ajax({
-        type: "GET",
-        url: "https://raw.githubusercontent.com/wenlab501/GEOG2017/main/DATA/%E5%9C%96%E8%B3%87%E6%B8%85%E5%96%AE.csv",
-        success: function (data) {
-            $('body').append(arrayToTable(Papa.parse(data).data));
-        }
-    });
-</script>
+  </body>	
 </html>

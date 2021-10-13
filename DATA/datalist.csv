@@ -1,32 +1,32 @@
-﻿"檔案名稱	副檔名	空間型態	座標系統	資料範圍	資料名稱	備註	檔案",,,,,
-"Popn_TWN2	""shp",shx,dbf,prj,"qrj""	面資料	3826	全台灣	鄉鎮市區三級年齡及性別人口統計		Popn_TWN2.zip",
-"Taiwan_county	""shp",shx,dbf,prj,cpg,"qrj""	面資料	3826	全台灣	縣市性別人口統計	無金門縣、連江縣	Taiwan_county.zip"
-"Taipei_Vill	""shp",shx,dbf,prj,"qrj""	面資料	3826	台北市	村里人口統計		Taipei_Vill.zip",
-"Taipei_village	""shp",shx,dbf,prj,"cpg""	面資料	3826	台北市	村里五歲年齡組人口統計		Taipei_village.zip",
-"TPE	""shp",shx,dbf,prj,sbn,"sbx""	面資料	3826	台北市	市界範圍	無欄位	TPE.zip"
-"TainanCounty	""shp",shx,dbf,"prj""	面資料	3826	台南市	市界範圍	無欄位	TainanCounty.zip",,
-"flood	""shp",shx,dbf,"prj""	面資料	3826	台北市	淹水範圍	配合課程【3】實習，原檔名為flood50	flood.zip",,
-"EPA_STN1	""shp",shx,dbf,prj,"qrj""	點資料	3826	全台灣	環保署空氣品質測站點位資料		EPA_STN1.zip",
-"Tpe_Fastfood	""shp",shx,dbf,prj,cpg,"qrj""	點資料	3826	台北市	速食店點位		Tpe_Fastfood.zip"
-"FASTFOOD	""shp",shx,dbf,prj,cpg,"qrj""	點資料	3826	台北市	速食店點位	欄位僅有ID，點位同Tpe_Fastfood	FASTFOOD.zip"
-"SCHOOL	""shp",shx,dbf,prj,cpg,"qrj""	點資料	3826	台北市	公私立國小點位		SCHOOL.zip"
-"Schools	""shp",shx,dbf,prj,"cpg""	點資料	3826	台南市	各級學校點位		Schools.zip",
-"Tempcycle_twd97	""shp",shx,dbf,prj,sbn,"sbx""	點資料	3826	全台灣	寺廟點位		Tempcycle_twd97.zip"
-"point_event	""shp",shx,dbf,sbn,"sbx""	點資料	無	全台灣	登革熱病例點位時空資料	配合課程【4】實習<br>資料中有提供座標，CRS為3826，學生可以練習設定	point_event.zip",
-"point1	csv	點座標	3826	台北市	DualKDE練習資料點1	配合課程【8】	point1.csv",,,,,
-"point2	csv	點座標	3826	台北市	DualKDE練習資料點2	配合課程【8】	point2.csv",,,,,
-"Sample	Rdata				R空間繪圖範例資料1	配合課程【1】	Sample.Rdata",,,,,
-"Sample2	Rdata				R空間繪圖範例資料2	配合課程【2】	Sample2.Rdata",,,,,
-"Sample3	Rdata				R空間繪圖範例資料3	配合課程【3】	Sample3.Rdata",,,,,
-"Shiny	zip				ShinyApp範例	配合課程【12】	Shiny.zip",,,,,
-"TPE_TOWN	""shp",shx,dbf,prj,cpg,"qrj""					配合課程【13】	TPE_TOWN.zip"
-"tpedata	csv					配合課程【13】	tpedata.csv",,,,,
-"point_tpe	""shp",shx,dbf,sbn,"sbx""					配合課程【14】	point_tpe.zip",
-"point3	""shp",shx,dbf,sbn,"sbx""					配合課程【14】	point3.zip",
-"Paitents_BND	csv					配合課程【14】	Paitents_BND.csv",,,,,
-"Patients	csv					配合課程【14】	Patients.csv",,,,,
-"EPA_STN2	""shp",shx,dbf,prj,sbn,"sbx""					配合課程【15】	EPA_STN2.zip"
-"NY8_utm18	""shp",shx,dbf,"prj""					配合課程【16】	NY8_utm18.zip",,
-"NY_nb	gal					配合課程【16】	NY_nb.gal",,,,,
-"Taiwan_TB	""shp",shx,dbf,prj,"cpg""					配合課程【17】	Taiwan_TB.zip",
-"spatial_multiplier.lab	xls					配合課程【17】	spatial_multiplier.lab.xls",,,,,
+﻿檔案名稱,副檔名,空間型態,座標系統,資料範圍,資料名稱,備註,檔案
+Popn_TWN2,"shp,shx,dbf,prj,qrj",面資料,3826,全台灣,鄉鎮市區三級年齡及性別人口統計,,Popn_TWN2.zip
+Taiwan_county,"shp,shx,dbf,prj,cpg,qrj",面資料,3826,全台灣,縣市性別人口統計,無金門縣、連江縣,Taiwan_county.zip
+Taipei_Vill,"shp,shx,dbf,prj,qrj",面資料,3826,台北市,村里人口統計,,Taipei_Vill.zip
+Taipei_village,"shp,shx,dbf,prj,cpg",面資料,3826,台北市,村里五歲年齡組人口統計,,Taipei_village.zip
+TPE,"shp,shx,dbf,prj,sbn,sbx",面資料,3826,台北市,市界範圍,無欄位,TPE.zip
+TainanCounty,"shp,shx,dbf,prj",面資料,3826,台南市,市界範圍,無欄位,TainanCounty.zip
+flood,"shp,shx,dbf,prj",面資料,3826,台北市,淹水範圍,配合課程【3】實習，原檔名為flood50,flood.zip
+EPA_STN1,"shp,shx,dbf,prj,qrj",點資料,3826,全台灣,環保署空氣品質測站點位資料,,EPA_STN1.zip
+Tpe_Fastfood,"shp,shx,dbf,prj,cpg,qrj",點資料,3826,台北市,速食店點位,,Tpe_Fastfood.zip
+FASTFOOD,"shp,shx,dbf,prj,cpg,qrj",點資料,3826,台北市,速食店點位,欄位僅有ID，點位同Tpe_Fastfood,FASTFOOD.zip
+SCHOOL,"shp,shx,dbf,prj,cpg,qrj",點資料,3826,台北市,公私立國小點位,,SCHOOL.zip
+Schools,"shp,shx,dbf,prj,cpg",點資料,3826,台南市,各級學校點位,,Schools.zip
+Tempcycle_twd97,"shp,shx,dbf,prj,sbn,sbx",點資料,3826,全台灣,寺廟點位,,Tempcycle_twd97.zip
+point_event,"shp,shx,dbf,sbn,sbx",點資料,無,全台灣,登革熱病例點位時空資料,配合課程【4】實習<br>資料中有提供座標，CRS為3826，學生可以練習設定,point_event.zip
+point1,csv,點座標,3826,台北市,DualKDE練習資料點1,配合課程【8】,point1.csv
+point2,csv,點座標,3826,台北市,DualKDE練習資料點2,配合課程【8】,point2.csv
+Sample,Rdata,,,,R空間繪圖範例資料1,配合課程【1】,Sample.Rdata
+Sample2,Rdata,,,,R空間繪圖範例資料2,配合課程【2】,Sample2.Rdata
+Sample3,Rdata,,,,R空間繪圖範例資料3,配合課程【3】,Sample3.Rdata
+Shiny,zip,,,,ShinyApp範例,配合課程【12】,Shiny.zip
+TPE_TOWN,"shp,shx,dbf,prj,cpg,qrj",,,,,配合課程【13】,TPE_TOWN.zip
+tpedata,csv,,,,,配合課程【13】,tpedata.csv
+point_tpe,"shp,shx,dbf,sbn,sbx",,,,,配合課程【14】,point_tpe.zip
+point3,"shp,shx,dbf,sbn,sbx",,,,,配合課程【14】,point3.zip
+Paitents_BND,csv,,,,,配合課程【14】,Paitents_BND.csv
+Patients,csv,,,,,配合課程【14】,Patients.csv
+EPA_STN2,"shp,shx,dbf,prj,sbn,sbx",,,,,配合課程【15】,EPA_STN2.zip
+NY8_utm18,"shp,shx,dbf,prj",,,,,配合課程【16】,NY8_utm18.zip
+NY_nb,gal,,,,,配合課程【16】,NY_nb.gal
+Taiwan_TB,"shp,shx,dbf,prj,cpg",,,,,配合課程【17】,Taiwan_TB.zip
+spatial_multiplier.lab,xls,,,,,配合課程【17】,spatial_multiplier.lab.xls

@@ -19,7 +19,7 @@
 			for (var i = 1; i < data.length-1; i++) {
 				row=data[i];
 				
-				if(row.join('')=='') $('tbody').append('');
+				if(row.join('')=='') $('tbody').append('<tr><td colspan="7"><B>* 以下圖資為課程【13】～【17】內容，依照課程週次排序</B></td></tr>');
 				else{	
 				let ext="";
 				if(typeof row[1] !== "undefined"){
@@ -36,7 +36,8 @@
 				let crs;
 				if(row[3]==3826) crs="<twd>3826</twd>"
 				else if (row[3]=="無") crs="<na>無</na>"
-				else crs=row[3];	
+				else if (row[3]=="") crs=""
+				else crs="<crs>"+row[3]+"</crs>";	
 				
 				let area;
 				if(row[4]=="全台灣") area="<TWN>全台灣</TWN>"

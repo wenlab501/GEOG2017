@@ -21,7 +21,7 @@
 				
 				let ext="";
 				if(typeof row[1] !== "undefined"){
-					exts=row[1].split(",");
+					exts=row[1].split(";");
 					for (const e of exts){ext=ext+'<'+e+'>.'+e+'</'+e+'> ';}
 				}
 								

@@ -27,7 +27,7 @@ Patients,csv,點座標,無,,某疾病範例：病例點位時空資料,配合課
 point3,shp;shx;dbf;sbn;sbx,點資料,無,,時空範例資料,配合課程【14】,point3.zip
 point_tpe,shp;shx;dbf;sbn;sbx,點資料,無,台北市,病例時空點位,配合課程【14】，CRS應為3826,point_tpe.zip
 EPA_STN2,shp;shx;dbf;prj;sbn;sbx,點資料,3826,全台灣,環保署空氣品質測站點位資料,配合課程【15】，內容與EPA_STN1相同,EPA_STN2.zip
-NY8_utm18,shp;shx;dbf;prj,面資料,32618,,紐約白血病數據,"配合課程【16】，詳細參考<a href=""https://nowosad.github.io/spData/reference/nydata.html"">New York leukemia data</a>",NY8_utm18.zip
-NY_nb,gal,,,,紐約鄰近關係表,配合課程【16】,NY_nb.gal
+NY8_utm18,shp;shx;dbf;prj,面資料,32618,紐約州,州內其中八縣之白血病數據,"配合課程【16】，詳細參考<a href=""https://nowosad.github.io/spData/reference/nydata.html"">New York leukemia data</a>",NY8_utm18.zip
+NY_nb,gal,,,紐約州,州內其中八縣之鄰近關係表,配合課程【16】,NY_nb.gal
 Taiwan_TB,shp;shx;dbf;prj;cpg,面資料,3828,全台灣,鄉鎮市區肺結核發生率與社經統計,配合課程【17】,Taiwan_TB.zip
 spatial_multiplier.lab,xls,,,,EXCEL實作範例,配合課程【17】,spatial_multiplier.lab.xls

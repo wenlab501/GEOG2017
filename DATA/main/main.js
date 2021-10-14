@@ -19,7 +19,7 @@
 			for (var i = 1; i < data.length-1; i++) {
 				row=data[i];
 				
-				if(row.join('')=='') $('tbody').append('<tr><td colspan="7"><B>* 以下圖資為課程【13】～【17】內容，依照課程週次排序</B></td></tr>');
+				if(row.join('')=='***') $('tbody').append('<tr><td colspan="7"><B>* 以下圖資為課程【13】～【17】內容，依照課程週次排序</B></td></tr>');
 				else{	
 				let ext="";
 				if(typeof row[1] !== "undefined"){

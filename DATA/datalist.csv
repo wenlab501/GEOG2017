@@ -18,14 +18,15 @@ point2,csv,點座標,3826,台北市,DualKDE練習資料點2,配合課程【8】,
 Sample,Rdata,,,,R空間繪圖範例資料1,配合課程【1】,Sample.Rdata
 Sample2,Rdata,,,,R空間繪圖範例資料2,配合課程【2】,Sample2.Rdata
 Sample3,Rdata,,,,R空間繪圖範例資料3,配合課程【3】,Sample3.Rdata
+,,,,,,,
 Shiny,zip,,,,ShinyApp範例,配合課程【12】,Shiny.zip
-tpedata,csv,點座標,3826,台北市,跟point_tpe一樣,配合課程【13】,tpedata.csv
-point_tpe,shp;shx;dbf;sbn;sbx,點資料,3826,台北市,,配合課程【14】,point_tpe.zip
-point3,shp;shx;dbf;sbn;sbx,,,,範例,配合課程【14】,point3.zip
+tpedata,csv,點座標,3826,台北市,某疾病之疫情資料,配合課程【13】，與point_tpe之內容相同,tpedata.csv
+point_tpe,shp;shx;dbf;sbn;sbx,點資料,無,台北市,某疾病之疫情資料,配合課程【14】，CRS應為3826,point_tpe.zip
+point3,shp;shx;dbf;sbn;sbx,點資料,無,,時空範例資料,配合課程【14】，時空範例資料,point3.zip
 Paitents_BND,csv,,,,,配合課程【14】,Paitents_BND.csv
 Patients,csv,,,,,配合課程【14】,Patients.csv
-EPA_STN2,shp;shx;dbf;prj;sbn;sbx,點資料,3826,全台灣,環保署空氣品質測站點位資料,配合課程【15】，內容與EPA_STN1相同。,EPA_STN2.zip
-NY8_utm18,shp;shx;dbf;prj,面資料,WGS 84 / UTM zone 18N,,,配合課程【16】,NY8_utm18.zip
+EPA_STN2,shp;shx;dbf;prj;sbn;sbx,點資料,3826,全台灣,環保署空氣品質測站點位資料,配合課程【15】，內容與EPA_STN1相同,EPA_STN2.zip
+NY8_utm18,shp;shx;dbf;prj,面資料,32618,,,配合課程【16】,NY8_utm18.zip
 NY_nb,gal,,,,,配合課程【16】,NY_nb.gal
 Taiwan_TB,shp;shx;dbf;prj;cpg,面資料,,全台灣,,配合課程【17】,Taiwan_TB.zip
 spatial_multiplier.lab,xls,,,,,配合課程【17】,spatial_multiplier.lab.xls

@@ -19,6 +19,8 @@
 			for (var i = 1; i < data.length-1; i++) {
 				row=data[i];
 				
+				if(row.join('')=='') $('tbody').append('');
+				else{	
 				let ext="";
 				if(typeof row[1] !== "undefined"){
 					exts=row[1].split(";");
@@ -53,6 +55,7 @@
 						  '</tr>';
 				
 				$('tbody').append(txt);
+				}
 			}
         }
     });

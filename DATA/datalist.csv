@@ -4,30 +4,33 @@ Taiwan_county,shp;shx;dbf;prj;cpg;qpj,面資料,3826,全台灣,縣市性別人�
 Taipei_Vill,shp;shx;dbf;prj;qpj,面資料,3826,台北市,村里人口統計,,Taipei_Vill.zip
 Taipei_village,shp;shx;dbf;prj;cpg,面資料,3826,台北市,村里五歲年齡組人口統計,,Taipei_village.zip
 TPE_TOWN,shp;shx;dbf;prj;cpg;qpj,面資料,3826,台北市,各行政區範圍,,TPE_TOWN.zip
+TPE_LI,shp;shx;dbf;prj;qpj,面資料,4326,台北市,村里面積,,TPE_LI.zip
 TPE,shp;shx;dbf;prj;sbn;sbx,面資料,3826,台北市,市界範圍,無欄位,TPE.zip
 TainanCounty,shp;shx;dbf;prj,面資料,3826,台南市,市界範圍,無欄位,TainanCounty.zip
-flood,shp;shx;dbf;prj,面資料,3826,台北市,淹水範圍,配合課程【3】實習，原檔名為flood50,flood.zip
+flood,shp;shx;dbf;prj,面資料,3826,台北市,淹水範圍,原檔名為flood50,flood.zip
 EPA_STN1,shp;shx;dbf;prj;qpj,點資料,3826,全台灣,環保署空氣品質測站點位資料,,EPA_STN1.zip
 Tpe_Fastfood,shp;shx;dbf;prj;cpg;qpj,點資料,3826,台北市,速食店點位,,Tpe_Fastfood.zip
 FASTFOOD,shp;shx;dbf;prj;cpg;qpj,點資料,3826,台北市,速食店點位,欄位僅有ID，點位同Tpe_Fastfood,FASTFOOD.zip
+MRT,shp;shx;dbf;prj;qpj,點資料,3826,台北市,捷運站點,,MRT.zip
 SCHOOL,shp;shx;dbf;prj;cpg;qpj,點資料,3826,台北市,公私立國小點位,,SCHOOL.zip
 Schools,shp;shx;dbf;prj;cpg,點資料,3826,台南市,各級學校點位,,Schools.zip
 Tempcycle_twd97,shp;shx;dbf;prj;sbn;sbx,點資料,3826,全台灣,寺廟點位,,Tempcycle_twd97.zip
-point_event,shp;shx;dbf;sbn;sbx,點資料,無,全台灣,登革熱病例點位時空資料,配合課程【4】實習<br>資料中有提供座標，CRS為3826，學生可以練習設定,point_event.zip
-point1,csv,點座標,3826,台北市,DualKDE練習資料點1,配合課程【8】,point1.csv
-point2,csv,點座標,3826,台北市,DualKDE練習資料點2,配合課程【8】,point2.csv
-Sample,Rdata,,,,R空間繪圖範例資料1,配合課程【1】,Sample.RData
-Sample2,Rdata,,,,R空間繪圖範例資料2,配合課程【2】,Sample2.Rdata
-Sample3,Rdata,,,,R空間繪圖範例資料3,配合課程【3】,Sample3.Rdata
-Shiny,zip,,,,ShinyApp範例,配合課程【12】,Shiny.zip
+point_event,shp;shx;dbf;sbn;sbx,點資料,3826,全台灣,登革熱病例點位時空資料,,point_event.zip
+point1,csv,點座標,3826,台北市,DualKDE練習資料點1,,point1.csv
+point2,csv,點座標,3826,台北市,DualKDE練習資料點2,,point2.csv
+landdata,csv,,,美國,各州住宅相關的時序性地產資料,,landdata.csv
+Sample,Rdata,,,,R空間繪圖範例資料1,,Sample.RData
+Sample2,Rdata,,,,R空間繪圖範例資料2,,Sample2.Rdata
+Sample3,Rdata,,,,R空間繪圖範例資料3,,Sample3.Rdata
+Shiny,zip,,,,ShinyApp範例,,Shiny.zip
 ***,,,,,,,
-tpedata,csv,點座標,3826,台北市,病例時空點位,配合課程【13】，內容與point_tpe相同,tpedata.csv
-Paitents_BND,csv,點座標,無,,某疾病範例：病例點範圍,配合課程【14】,Paitents_BND.csv
-Patients,csv,點座標,無,,某疾病範例：病例點位時空資料,配合課程【14】,Patients.csv
-point3,shp;shx;dbf;sbn;sbx,點資料,無,,時空範例資料,配合課程【14】,point3.zip
-point_tpe,shp;shx;dbf;sbn;sbx,點資料,無,台北市,病例時空點位,配合課程【14】，CRS應為3826,point_tpe.zip
-EPA_STN2,shp;shx;dbf;prj;sbn;sbx,點資料,3826,全台灣,環保署空氣品質測站點位資料,配合課程【15】，內容與EPA_STN1相同,EPA_STN2.zip
-NY8_utm18,shp;shx;dbf;prj,面資料,32618,紐約州,州內其中八縣之白血病數據,"配合課程【16】，詳細參考<a href=""https://nowosad.github.io/spData/reference/nydata.html"">New York leukemia data</a>",NY8_utm18.zip
-NY_nb,gal,鄰近表,,紐約州,州內其中八縣之鄰近關係表,配合課程【16】,NY_nb.gal
-Taiwan_TB,shp;shx;dbf;prj;cpg,面資料,3828,全台灣,鄉鎮市區肺結核發生率與社經統計,配合課程【17】,Taiwan_TB.zip
-spatial_multiplier.lab,xls,,,,EXCEL實作範例,配合課程【17】,spatial_multiplier.lab.xls
+tpedata,csv,點座標,3826,台北市,病例時空點位,內容與point_tpe相同,tpedata.csv
+Paitents_BND,csv,點座標,無,,某疾病範例：病例點範圍,,Paitents_BND.csv
+Patients,csv,點座標,無,,某疾病範例：病例點位時空資料,,Patients.csv
+point3,shp;shx;dbf;sbn;sbx,點資料,無,,時空範例資料,,point3.zip
+point_tpe,shp;shx;dbf;sbn;sbx,點資料,無,台北市,病例時空點位,,point_tpe.zip
+EPA_STN2,shp;shx;dbf;prj;sbn;sbx,點資料,3826,全台灣,環保署空氣品質測站點位資料,,EPA_STN2.zip
+NY8_utm18,shp;shx;dbf;prj,面資料,32618,紐約州,州內其中八縣之白血病數據,"詳細參考<a href=""https://nowosad.github.io/spData/reference/nydata.html"">New York leukemia data</a>",NY8_utm18.zip
+NY_nb,gal,鄰近表,,紐約州,州內其中八縣之鄰近關係表,,NY_nb.gal
+Taiwan_TB,shp;shx;dbf;prj;cpg,面資料,3828,全台灣,鄉鎮市區肺結核發生率與社經統計,,Taiwan_TB.zip
+spatial_multiplier.lab,xls,,,,EXCEL實作範例,,spatial_multiplier.lab.xls

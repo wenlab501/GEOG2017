@@ -22,6 +22,7 @@ landdata,csv,,,美國,各州住宅相關的時序性地產資料,,landdata.csv
 Sample,Rdata,,,,R空間繪圖範例資料1,,Sample.RData
 Sample2,Rdata,,,,R空間繪圖範例資料2,,Sample2.Rdata
 Sample3,Rdata,,,,R空間繪圖範例資料3,,Sample3.Rdata
+CLT,Rdata,,,,中央極限定理模擬教學,,CLT.R
 Shiny,zip,,,,ShinyApp範例,,Shiny.zip
 ***,,,,,,,
 tpedata,csv,點座標,3826,台北市,病例時空點位,內容與point_tpe相同,tpedata.csv

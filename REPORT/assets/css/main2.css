@@ -1053,6 +1053,10 @@
 .bluegray {
 	background-color: #607d8b;
 	color: white; }
+.bluegrey:hover {
+			border-color: #607d8b;
+			color: #607d8b !important;
+			background-color: rgb(96, 125, 139, 0.3);}	
 .green2{
 	color:white;
 	background-color:#408080

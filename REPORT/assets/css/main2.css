@@ -1051,8 +1051,9 @@
 	background-color:rgb(173, 214, 255,0.3);
 }
 .bluegray {
-	color: white;
-	background-color: #607d8b}
+	color: white!important;
+	background-color: #607d8b!important
+}
 .bluegray:hover {
 			border-color: #607d8b;
 			color: #607d8b !important;

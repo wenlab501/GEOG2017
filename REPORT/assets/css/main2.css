@@ -1050,7 +1050,9 @@
 	color: #003D79 !important;
 	background-color:rgb(173, 214, 255,0.3);
 }
-
+.bluegray {
+	background-color: #607d8b;
+	color: white; }
 .green2{
 	color:white;
 	background-color:#408080

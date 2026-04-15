@@ -14,6 +14,7 @@ FASTFOOD,shp;shx;dbf;prj;cpg;qpj,點資料,3826,台北市,速食店點位,欄位
 MRT,shp;shx;dbf;prj;qpj,點資料,3826,台北市,捷運站點,,MRT.zip
 SCHOOL,shp;shx;dbf;prj;cpg;qpj,點資料,3826,台北市,公私立國小點位,,SCHOOL.zip
 Schools,shp;shx;dbf;prj;cpg,點資料,3826,台南市,各級學校點位,,Schools.zip
+Taiwan_temple,shp;shx;dbf;prj;cpg;qpj,點資料,3826,全台灣,寺廟點位,,Taiwan_temple.zip
 Tempcycle_twd97,shp;shx;dbf;prj;sbn;sbx,點資料,3826,全台灣,寺廟點位,,Tempcycle_twd97.zip
 point_event,shp;shx;dbf;sbn;sbx,點資料,3826,全台灣,登革熱病例點位時空資料,,point_event.zip
 point1,csv,點座標,3826,台北市,DualKDE練習資料點1,,point1.csv

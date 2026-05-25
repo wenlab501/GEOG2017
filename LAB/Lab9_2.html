@@ -1,0 +1,1185 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Join Count Statistic — Monte Carlo Significance Test</title>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d1117;
+    --bg2: #161b22;
+    --bg3: #1e2530;
+    --border: #30363d;
+    --border2: #444c56;
+    --text: #e6edf3;
+    --text2: #8b949e;
+    --text3: #6e7681;
+    --black-cell: #1a1a2e;
+    --black-cell-border: #3a3a5c;
+    --white-cell: #f0f0e8;
+    --white-cell-border: #c8c8b8;
+    --accent-bb: #58a6ff;
+    --accent-bw: #f78166;
+    --accent-ww: #3fb950;
+    --accent-obs: #ffa657;
+    --accent-gold: #e3b341;
+    --accent-purple: #bc8cff;
+    --glow-blue: rgba(88, 166, 255, 0.15);
+    --glow-orange: rgba(255, 166, 87, 0.2);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Noto Sans TC', sans-serif;
+    font-weight: 300;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── Header ── */
+  .header {
+    border-bottom: 1px solid var(--border);
+    padding: 28px 40px 24px;
+    display: flex;
+    align-items: flex-end;
+    gap: 32px;
+    background: linear-gradient(180deg, #0a0e14 0%, var(--bg) 100%);
+  }
+  .header-title h1 {
+    font-family: 'Crimson Pro', serif;
+    font-size: 2rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.1;
+    color: var(--text);
+  }
+  .header-title h1 span { color: var(--accent-bb); }
+  .header-title p {
+    font-family: 'Crimson Pro', serif;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--text2);
+    margin-top: 4px;
+  }
+  .badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    font-weight: 500;
+    padding: 3px 8px;
+    border-radius: 3px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border: 1px solid var(--border2);
+    color: var(--text3);
+    background: var(--bg2);
+    white-space: nowrap;
+    margin-bottom: 4px;
+  }
+
+  /* ── Main layout ── */
+  .main {
+    display: grid;
+    grid-template-columns: 340px 1fr;
+    gap: 0;
+    height: calc(100vh - 93px);
+    min-height: 600px;
+  }
+
+  /* ── Left panel ── */
+  .left-panel {
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+  }
+
+  .section {
+    border-bottom: 1px solid var(--border);
+    padding: 20px 20px;
+  }
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--text3);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-label::before {
+    content: '';
+    display: inline-block;
+    width: 3px;
+    height: 10px;
+    background: var(--accent-bb);
+    border-radius: 2px;
+  }
+
+  /* Grid container */
+  .grid-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+  #map-grid {
+    display: grid;
+    gap: 3px;
+    cursor: pointer;
+  }
+  .cell {
+    width: 36px;
+    height: 36px;
+    border-radius: 4px;
+    border: 2px solid transparent;
+    transition: all 0.12s ease;
+    position: relative;
+  }
+  .cell.black {
+    background: var(--black-cell);
+    border-color: var(--black-cell-border);
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.04);
+  }
+  .cell.white {
+    background: var(--white-cell);
+    border-color: var(--white-cell-border);
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,0.08);
+  }
+  .cell:hover { transform: scale(1.08); z-index: 2; }
+  .cell.black:hover { border-color: var(--accent-bb); box-shadow: 0 0 8px var(--glow-blue); }
+  .cell.white:hover { border-color: #aaa; }
+
+  /* Presets */
+  .preset-btns {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .preset-btn {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    padding: 5px 10px;
+    border-radius: 4px;
+    border: 1px solid var(--border2);
+    background: var(--bg3);
+    color: var(--text2);
+    cursor: pointer;
+    transition: all 0.12s;
+    letter-spacing: 0.02em;
+  }
+  .preset-btn:hover { border-color: var(--accent-bb); color: var(--accent-bb); background: var(--glow-blue); }
+
+  /* Join counts display */
+  .jc-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+  }
+  .jc-card {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 8px;
+    text-align: center;
+  }
+  .jc-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    margin-bottom: 4px;
+  }
+  .jc-label.bb { color: var(--accent-bb); }
+  .jc-label.bw { color: var(--accent-bw); }
+  .jc-label.ww { color: var(--accent-ww); }
+  .jc-val {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .jc-sub { font-size: 0.62rem; color: var(--text3); margin-top: 2px; }
+
+  /* Test config */
+  .config-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  .config-row label {
+    font-size: 0.8rem;
+    color: var(--text2);
+  }
+  .config-row select, .config-row input[type=range] {
+    background: var(--bg3);
+    border: 1px solid var(--border2);
+    color: var(--text);
+    border-radius: 4px;
+    padding: 4px 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    outline: none;
+  }
+  .config-row select:focus { border-color: var(--accent-bb); }
+  #perm-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--accent-gold);
+    min-width: 40px;
+    text-align: right;
+  }
+  input[type=range] {
+    -webkit-appearance: none;
+    height: 4px;
+    background: var(--border2);
+    border: none;
+    border-radius: 2px;
+    width: 120px;
+    padding: 0;
+    cursor: pointer;
+  }
+  input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    background: var(--accent-bb);
+    cursor: pointer;
+  }
+
+  .run-btn {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(135deg, #1c3354, #162640);
+    border: 1px solid var(--accent-bb);
+    color: var(--accent-bb);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-top: 4px;
+  }
+  .run-btn:hover:not(:disabled) {
+    background: linear-gradient(135deg, #1e3a60, #1a2e4a);
+    box-shadow: 0 0 20px rgba(88, 166, 255, 0.25);
+    transform: translateY(-1px);
+  }
+  .run-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+  }
+  .run-btn.running {
+    animation: pulse-btn 0.8s ease-in-out infinite alternate;
+  }
+  @keyframes pulse-btn {
+    from { box-shadow: 0 0 8px rgba(88,166,255,0.2); }
+    to { box-shadow: 0 0 24px rgba(88,166,255,0.5); }
+  }
+
+  /* ── Right panel ── */
+  .right-panel {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  /* Theory steps */
+  .theory-bar {
+    border-bottom: 1px solid var(--border);
+    padding: 14px 28px;
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    overflow-x: auto;
+    flex-shrink: 0;
+  }
+  .step-pill {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    padding: 5px 12px;
+    border-radius: 20px;
+    border: 1px solid var(--border2);
+    background: transparent;
+    color: var(--text3);
+    cursor: pointer;
+    transition: all 0.15s;
+    white-space: nowrap;
+    letter-spacing: 0.03em;
+  }
+  .step-pill:hover { color: var(--text2); border-color: var(--border2); }
+  .step-pill.active {
+    background: var(--accent-bb);
+    border-color: var(--accent-bb);
+    color: #0d1117;
+    font-weight: 700;
+  }
+
+  /* Theory panels */
+  .theory-panel {
+    display: none;
+    padding: 20px 28px;
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+    max-height: 200px;
+    overflow-y: auto;
+  }
+  .theory-panel.active { display: block; }
+  .theory-panel h3 {
+    font-family: 'Crimson Pro', serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--text);
+  }
+  .theory-panel p {
+    font-size: 0.82rem;
+    line-height: 1.7;
+    color: var(--text2);
+    margin-bottom: 6px;
+  }
+  .formula {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent-bb);
+    border-radius: 4px;
+    padding: 10px 14px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--accent-gold);
+    margin: 8px 0;
+    line-height: 1.6;
+  }
+
+  /* Visualization area */
+  .viz-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 28px;
+    overflow: hidden;
+    min-height: 0;
+  }
+
+  .viz-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    flex-shrink: 0;
+  }
+  .viz-title {
+    font-family: 'Crimson Pro', serif;
+    font-size: 1.05rem;
+    font-style: italic;
+    color: var(--text2);
+  }
+  .progress-bar-wrap {
+    height: 3px;
+    background: var(--bg3);
+    border-radius: 2px;
+    width: 200px;
+    overflow: hidden;
+  }
+  #progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent-bb), var(--accent-purple));
+    border-radius: 2px;
+    width: 0%;
+    transition: width 0.1s;
+  }
+
+  /* Histogram canvas */
+  .chart-container {
+    flex: 1;
+    position: relative;
+    min-height: 0;
+  }
+  #hist-canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  /* Result panel */
+  .result-panel {
+    border-top: 1px solid var(--border);
+    padding: 16px 28px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    flex-shrink: 0;
+    background: var(--bg2);
+  }
+  .result-stat {
+    text-align: center;
+  }
+  .result-stat .rs-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text3);
+    margin-bottom: 4px;
+  }
+  .result-stat .rs-val {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .result-stat .rs-val.sig { color: var(--accent-bw); }
+  .result-stat .rs-val.ns { color: var(--accent-ww); }
+  .result-stat .rs-val.highlight { color: var(--accent-obs); }
+
+  /* Verdict */
+  .verdict-bar {
+    border-top: 1px solid var(--border);
+    padding: 12px 28px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+    background: var(--bg);
+  }
+  .verdict-icon {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+  }
+  .verdict-text {
+    font-family: 'Crimson Pro', serif;
+    font-size: 0.95rem;
+    color: var(--text2);
+    font-style: italic;
+  }
+  .verdict-text strong { font-style: normal; color: var(--text); font-weight: 600; }
+
+  /* Empty state */
+  .empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    gap: 12px;
+    color: var(--text3);
+  }
+  .empty-state .es-icon { font-size: 2.5rem; opacity: 0.3; }
+  .empty-state p { font-family: 'Crimson Pro', serif; font-size: 1rem; font-style: italic; }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 5px; height: 5px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+
+  /* Annotation tooltip on histogram */
+  .hist-annotation {
+    position: absolute;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    pointer-events: none;
+  }
+
+  /* H0/H1 hypothesis display */
+  .hyp-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  .hyp-card {
+    flex: 1;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    padding: 8px 10px;
+  }
+  .hyp-card .hl { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; font-weight: 700; margin-bottom: 3px; }
+  .hyp-card p { font-size: 0.75rem; color: var(--text2); line-height: 1.5; }
+  .hyp-card.h0 .hl { color: var(--text3); }
+  .hyp-card.h1 .hl { color: var(--accent-bw); }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+  <div class="header-title">
+    <h1>Join Count Statistic <span>&amp;</span> Monte Carlo Test</h1>
+    <p>Spatial Autocorrelation · Nominal Data · Permutation-based Inference</p>
+  </div>
+  <div class="badge">空間統計學 互動演示</div>
+</div>
+
+<!-- Main -->
+<div class="main">
+
+  <!-- ════ LEFT PANEL ════ -->
+  <div class="left-panel">
+
+    <!-- Grid section -->
+    <div class="section">
+      <div class="section-label">空間格網地圖</div>
+      <div class="grid-wrapper">
+        <div id="map-grid"></div>
+        <div class="preset-btns">
+          <button class="preset-btn" onclick="setPreset('clustered')">● 聚集</button>
+          <button class="preset-btn" onclick="setPreset('dispersed')">◌ 分散</button>
+          <button class="preset-btn" onclick="setPreset('random')">⊞ 隨機</button>
+          <button class="preset-btn" onclick="setPreset('checkerboard')">▦ 棋盤</button>
+          <button class="preset-btn" onclick="setPreset('clear')">○ 清除</button>
+        </div>
+        <div style="font-size:0.7rem; color:var(--text3); text-align:center;">
+          點擊格子切換 ■ 黑 / □ 白
+        </div>
+      </div>
+    </div>
+
+    <!-- Join counts -->
+    <div class="section">
+      <div class="section-label">觀測值 Observed Joins</div>
+      <div class="jc-grid">
+        <div class="jc-card">
+          <div class="jc-label bb">BB</div>
+          <div class="jc-val" id="obs-bb">0</div>
+          <div class="jc-sub">黑–黑</div>
+        </div>
+        <div class="jc-card">
+          <div class="jc-label bw">BW</div>
+          <div class="jc-val" id="obs-bw">0</div>
+          <div class="jc-sub">黑–白</div>
+        </div>
+        <div class="jc-card">
+          <div class="jc-label ww">WW</div>
+          <div class="jc-val" id="obs-ww">0</div>
+          <div class="jc-sub">白–白</div>
+        </div>
+      </div>
+      <div style="margin-top:10px; font-size:0.73rem; color:var(--text3); text-align:center;">
+        總連結數 J = <span id="total-joins" style="color:var(--text2); font-family:'JetBrains Mono',monospace;">0</span>
+        &nbsp;|&nbsp; 黑格 n<sub>B</sub> = <span id="n-black" style="color:var(--accent-bb); font-family:'JetBrains Mono',monospace;">0</span>
+        &nbsp;|&nbsp; 白格 n<sub>W</sub> = <span id="n-white" style="color:var(--text2); font-family:'JetBrains Mono',monospace;">0</span>
+      </div>
+    </div>
+
+    <!-- Test config -->
+    <div class="section">
+      <div class="section-label">檢定設定</div>
+      <div class="config-row">
+        <label>檢定統計量</label>
+        <select id="test-type" onchange="resetResults()">
+          <option value="BB">BB（黑–黑）</option>
+          <option value="BW">BW（黑–白）</option>
+          <option value="WW">WW（白–白）</option>
+        </select>
+      </div>
+      <div class="config-row">
+        <label>對立假設方向</label>
+        <select id="alt-type" onchange="resetResults()">
+          <option value="greater">大於（聚集）</option>
+          <option value="less">小於（分散）</option>
+          <option value="two">雙尾</option>
+        </select>
+      </div>
+      <div class="config-row">
+        <label>模擬次數</label>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <input type="range" id="perm-slider" min="99" max="999" step="100" value="499" oninput="updatePermLabel()">
+          <span id="perm-label">499</span>
+        </div>
+      </div>
+      <button class="run-btn" id="run-btn" onclick="runMonteCarlo()">▶ 執行 Monte Carlo 模擬</button>
+    </div>
+
+  </div><!-- /left-panel -->
+
+  <!-- ════ RIGHT PANEL ════ -->
+  <div class="right-panel">
+
+    <!-- Step tabs -->
+    <div class="theory-bar">
+      <button class="step-pill active" data-step="0" onclick="showStep(0)">① 原理</button>
+      <button class="step-pill" data-step="1" onclick="showStep(1)">② Join Count</button>
+      <button class="step-pill" data-step="2" onclick="showStep(2)">③ 虛無假說</button>
+      <button class="step-pill" data-step="3" onclick="showStep(3)">④ 置換邏輯</button>
+      <button class="step-pill" data-step="4" onclick="showStep(4)">⑤ p 值計算</button>
+    </div>
+
+    <!-- Theory panels -->
+    <div class="theory-panel active" id="step-0">
+      <h3>為什麼需要 Monte Carlo 顯著性檢定？</h3>
+      <p>Join Count Statistic 是針對 <strong>名義尺度（nominal scale）</strong> 空間資料的自相關指標。地圖上每個單元為黑（B）或白（W），我們想知道：相鄰單元的顏色是否非隨機地聚集或分散？</p>
+      <p>理論抽樣分布（常態近似）在小樣本或極端分布時不可靠。<strong>Monte Carlo 方法</strong>以排列置換直接建構參考分布，不需假設，更具彈性。</p>
+    </div>
+    <div class="theory-panel" id="step-1">
+      <h3>Join Count 的定義</h3>
+      <p>以 <strong>Rook Contiguity（城堡型）</strong>定義鄰接：每格最多 4 個相鄰格。</p>
+      <div class="formula">
+BB = Σ w<sub>ij</sub> · x<sub>i</sub> · x<sub>j</sub>          （x = 1 if Black）
+BW = Σ w<sub>ij</sub> · x<sub>i</sub> · (1−x<sub>j</sub>) + w<sub>ij</sub>·(1−x<sub>i</sub>)·x<sub>j</sub>
+WW = Σ w<sub>ij</sub> · (1−x<sub>i</sub>) · (1−x<sub>j</sub>)
+      </div>
+      <p>其中 w<sub>ij</sub> = 1 若單元 i 與 j 相鄰，每條邊只計算一次（i &lt; j）。三者之和恆等於總連結數 J。</p>
+    </div>
+    <div class="theory-panel" id="step-2">
+      <h3>假說設定</h3>
+      <div class="hyp-row">
+        <div class="hyp-card h0">
+          <div class="hl">H₀：空間隨機性（CSR）</div>
+          <p>在固定 n<sub>B</sub> 個黑格、n<sub>W</sub> 個白格的條件下，所有空間配置出現的機率相同。即無空間自相關。</p>
+        </div>
+        <div class="hyp-card h1">
+          <div class="hl">H₁：空間非隨機性</div>
+          <p>BB 顯著偏高 → 聚集；BW 顯著偏高 → 分散；可依研究假設選擇單尾或雙尾。</p>
+        </div>
+      </div>
+    </div>
+    <div class="theory-panel" id="step-3">
+      <h3>Monte Carlo 置換程序</h3>
+      <p>在 H₀ 下，黑格標籤可自由被隨機分配到任意格中（僅需保持 n<sub>B</sub> 固定）。</p>
+      <div class="formula">
+重複 N 次（本例 N = 模擬次數設定）：
+  1. 隨機置換地圖上 n<sub>B</sub> 個黑格的位置
+  2. 重新計算 Join Count 統計量 T*
+  3. 記錄 T*，建構參考分布
+      </div>
+      <p>這樣得到的 N 個 T* 就代表在 H₀ 下，統計量的<strong>經驗參考分布</strong>。</p>
+    </div>
+    <div class="theory-panel" id="step-4">
+      <h3>p 值的計算方式</h3>
+      <div class="formula">
+單尾（右尾，BB 聚集）：
+  p = (#{T* ≥ T_obs} + 1) / (N + 1)
+
+單尾（左尾，BW 分散）：
+  p = (#{T* ≤ T_obs} + 1) / (N + 1)
+
+雙尾：
+  p = 2 × min(右尾p, 左尾p)
+      </div>
+      <p>分子與分母各加 1 是因為觀測值本身也是一種可能的置換結果（Manly, 1997）。p 值越小，越有證據拒絕 H₀。</p>
+    </div>
+
+    <!-- Histogram / viz -->
+    <div class="viz-area">
+      <div class="viz-header">
+        <div class="viz-title" id="viz-title">Monte Carlo 參考分布</div>
+        <div class="progress-bar-wrap">
+          <div id="progress-bar"></div>
+        </div>
+      </div>
+      <div class="chart-container">
+        <canvas id="hist-canvas"></canvas>
+        <div class="empty-state" id="empty-state">
+          <div class="es-icon">⚄</div>
+          <p>設定格網後，點擊「執行 Monte Carlo 模擬」</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Result stats -->
+    <div class="result-panel">
+      <div class="result-stat">
+        <div class="rs-label">觀測值 T_obs</div>
+        <div class="rs-val highlight" id="res-tobs">—</div>
+      </div>
+      <div class="result-stat">
+        <div class="rs-label">模擬平均 E[T*]</div>
+        <div class="rs-val" id="res-mean">—</div>
+      </div>
+      <div class="result-stat">
+        <div class="rs-label">模擬 SD</div>
+        <div class="rs-val" id="res-sd">—</div>
+      </div>
+      <div class="result-stat">
+        <div class="rs-label">p 值 (MC)</div>
+        <div class="rs-val" id="res-pval">—</div>
+      </div>
+    </div>
+
+    <!-- Verdict -->
+    <div class="verdict-bar">
+      <div class="verdict-icon" id="verdict-icon" style="background:var(--bg3); border:1px solid var(--border);">?</div>
+      <div class="verdict-text" id="verdict-text">執行模擬後將顯示統計推論結果。</div>
+    </div>
+
+  </div><!-- /right-panel -->
+</div><!-- /main -->
+
+<script>
+// ══════════════════════════════════════════════
+//  Grid state
+// ══════════════════════════════════════════════
+const GRID_SIZE = 7;
+let cells = Array(GRID_SIZE * GRID_SIZE).fill(0); // 0=white, 1=black
+let simResults = [];
+let animFrame = null;
+
+// Preset patterns
+const PRESETS = {
+  clustered: [
+    0,0,0,0,0,0,0,
+    0,1,1,0,0,0,0,
+    0,1,1,1,0,0,0,
+    0,1,1,0,0,0,0,
+    0,0,0,0,1,1,0,
+    0,0,0,0,1,1,0,
+    0,0,0,0,0,0,0,
+  ],
+  dispersed: [
+    1,0,1,0,1,0,1,
+    0,0,0,0,0,0,0,
+    1,0,1,0,1,0,1,
+    0,0,0,0,0,0,0,
+    1,0,1,0,1,0,1,
+    0,0,0,0,0,0,0,
+    1,0,0,0,0,0,0,
+  ],
+  checkerboard: Array.from({length: GRID_SIZE*GRID_SIZE}, (_, i) => {
+    const r = Math.floor(i/GRID_SIZE), c = i%GRID_SIZE;
+    return (r+c)%2;
+  }),
+  clear: Array(GRID_SIZE * GRID_SIZE).fill(0),
+};
+
+function setPreset(name) {
+  if (name === 'random') {
+    cells = Array.from({length: GRID_SIZE*GRID_SIZE}, () => Math.random() > 0.6 ? 1 : 0);
+  } else {
+    cells = [...PRESETS[name]];
+  }
+  renderGrid();
+  updateJoinCounts();
+  resetResults();
+}
+
+// ══════════════════════════════════════════════
+//  Grid rendering
+// ══════════════════════════════════════════════
+function renderGrid() {
+  const grid = document.getElementById('map-grid');
+  grid.style.gridTemplateColumns = `repeat(${GRID_SIZE}, 36px)`;
+  grid.innerHTML = '';
+  cells.forEach((val, i) => {
+    const div = document.createElement('div');
+    div.className = 'cell ' + (val ? 'black' : 'white');
+    div.dataset.idx = i;
+    div.addEventListener('click', () => toggleCell(i));
+    grid.appendChild(div);
+  });
+}
+
+function toggleCell(i) {
+  cells[i] = cells[i] ? 0 : 1;
+  const el = document.querySelector(`.cell[data-idx="${i}"]`);
+  el.className = 'cell ' + (cells[i] ? 'black' : 'white');
+  updateJoinCounts();
+  resetResults();
+}
+
+// ══════════════════════════════════════════════
+//  Join count calculation
+// ══════════════════════════════════════════════
+function getNeighbors(i) {
+  const r = Math.floor(i / GRID_SIZE), c = i % GRID_SIZE;
+  const nb = [];
+  if (r > 0) nb.push(i - GRID_SIZE);
+  if (r < GRID_SIZE-1) nb.push(i + GRID_SIZE);
+  if (c > 0) nb.push(i - 1);
+  if (c < GRID_SIZE-1) nb.push(i + 1);
+  return nb;
+}
+
+// Get all edges (rook, undirected, i<j)
+const EDGES = (() => {
+  const edges = [];
+  for (let i = 0; i < GRID_SIZE*GRID_SIZE; i++) {
+    for (const j of getNeighbors(i)) {
+      if (j > i) edges.push([i, j]);
+    }
+  }
+  return edges;
+})();
+
+function calcJoinCounts(arr) {
+  let bb=0, bw=0, ww=0;
+  for (const [i, j] of EDGES) {
+    const ci = arr[i], cj = arr[j];
+    if (ci===1 && cj===1) bb++;
+    else if (ci===0 && cj===0) ww++;
+    else bw++;
+  }
+  return { bb, bw, ww };
+}
+
+function updateJoinCounts() {
+  const { bb, bw, ww } = calcJoinCounts(cells);
+  document.getElementById('obs-bb').textContent = bb;
+  document.getElementById('obs-bw').textContent = bw;
+  document.getElementById('obs-ww').textContent = ww;
+  document.getElementById('total-joins').textContent = EDGES.length;
+  const nB = cells.filter(v=>v===1).length;
+  document.getElementById('n-black').textContent = nB;
+  document.getElementById('n-white').textContent = cells.length - nB;
+}
+
+// ══════════════════════════════════════════════
+//  Permutation
+// ══════════════════════════════════════════════
+function fisherYates(arr) {
+  // shuffle in-place
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+function permute(arr) {
+  return fisherYates([...arr]);
+}
+
+// ══════════════════════════════════════════════
+//  Monte Carlo main
+// ══════════════════════════════════════════════
+function updatePermLabel() {
+  document.getElementById('perm-label').textContent = document.getElementById('perm-slider').value;
+}
+
+function resetResults() {
+  simResults = [];
+  document.getElementById('res-tobs').textContent = '—';
+  document.getElementById('res-mean').textContent = '—';
+  document.getElementById('res-sd').textContent = '—';
+  document.getElementById('res-pval').textContent = '—';
+  document.getElementById('res-pval').className = 'rs-val';
+  document.getElementById('verdict-icon').textContent = '?';
+  document.getElementById('verdict-icon').style.background = 'var(--bg3)';
+  document.getElementById('verdict-text').innerHTML = '執行模擬後將顯示統計推論結果。';
+  document.getElementById('empty-state').style.display = 'flex';
+  document.getElementById('progress-bar').style.width = '0%';
+  if (animFrame) cancelAnimationFrame(animFrame);
+  drawEmptyCanvas();
+}
+
+function runMonteCarlo() {
+  const nB = cells.filter(v=>v===1).length;
+  if (nB === 0 || nB === cells.length) {
+    alert('請在地圖上同時設定黑色與白色格子！');
+    return;
+  }
+
+  const N = parseInt(document.getElementById('perm-slider').value);
+  const testType = document.getElementById('test-type').value.toLowerCase();
+  const altType = document.getElementById('alt-type').value;
+  const obs = calcJoinCounts(cells)[testType];
+
+  document.getElementById('empty-state').style.display = 'none';
+  document.getElementById('run-btn').disabled = true;
+  document.getElementById('run-btn').classList.add('running');
+  document.getElementById('res-tobs').textContent = obs;
+
+  simResults = [];
+  const BATCH = 50;
+  let done = 0;
+
+  function runBatch() {
+    const end = Math.min(done + BATCH, N);
+    for (let k = done; k < end; k++) {
+      const perm = permute(cells);
+      simResults.push(calcJoinCounts(perm)[testType]);
+    }
+    done = end;
+    const pct = (done / N * 100).toFixed(0);
+    document.getElementById('progress-bar').style.width = pct + '%';
+
+    // Draw intermediate histogram every batch
+    drawHistogram(obs, simResults, testType, altType, done < N);
+
+    if (done < N) {
+      animFrame = requestAnimationFrame(runBatch);
+    } else {
+      finalize(obs, simResults, testType, altType, N);
+      document.getElementById('run-btn').disabled = false;
+      document.getElementById('run-btn').classList.remove('running');
+    }
+  }
+
+  animFrame = requestAnimationFrame(runBatch);
+}
+
+function finalize(obs, sims, testType, altType, N) {
+  const mean = sims.reduce((a,b)=>a+b,0)/N;
+  const sd = Math.sqrt(sims.reduce((a,b)=>a+(b-mean)**2,0)/(N-1));
+
+  // p-value
+  let p;
+  const excRight = sims.filter(v=>v >= obs).length;
+  const excLeft  = sims.filter(v=>v <= obs).length;
+  if (altType === 'greater') p = (excRight + 1) / (N + 1);
+  else if (altType === 'less') p = (excLeft + 1) / (N + 1);
+  else p = Math.min(1, 2 * Math.min((excRight+1)/(N+1), (excLeft+1)/(N+1)));
+
+  document.getElementById('res-mean').textContent = mean.toFixed(2);
+  document.getElementById('res-sd').textContent = sd.toFixed(2);
+  const pEl = document.getElementById('res-pval');
+  pEl.textContent = p < 0.001 ? '< 0.001' : p.toFixed(4);
+  pEl.className = 'rs-val ' + (p < 0.05 ? 'sig' : 'ns');
+
+  // Verdict
+  const alpha = 0.05;
+  const sig = p < alpha;
+  const icon = document.getElementById('verdict-icon');
+  const text = document.getElementById('verdict-text');
+  const typeLabel = testType.toUpperCase();
+  const dirLabel = altType === 'greater' ? '（偏高/聚集）' : altType === 'less' ? '（偏低/分散）' : '（雙尾）';
+
+  if (sig) {
+    icon.textContent = '✗';
+    icon.style.background = '#3d1a1a';
+    icon.style.color = 'var(--accent-bw)';
+    icon.style.border = '1px solid var(--accent-bw)';
+    text.innerHTML = `在 α = 0.05 下，<strong>拒絕 H₀</strong>。觀測 ${typeLabel} = ${obs} 顯著偏離隨機期望${dirLabel}（p = ${p < 0.001 ? '< 0.001' : p.toFixed(4)}）。空間格局具顯著的<strong>非隨機性</strong>。`;
+  } else {
+    icon.textContent = '○';
+    icon.style.background = '#1a2e1a';
+    icon.style.color = 'var(--accent-ww)';
+    icon.style.border = '1px solid var(--accent-ww)';
+    text.innerHTML = `在 α = 0.05 下，<strong>無法拒絕 H₀</strong>。觀測 ${typeLabel} = ${obs} 與隨機期望無顯著差異（p = ${p.toFixed(4)}）。現有證據不足以確認空間非隨機性。`;
+  }
+
+  drawHistogram(obs, sims, testType, altType, false);
+}
+
+// ══════════════════════════════════════════════
+//  Histogram drawing
+// ══════════════════════════════════════════════
+function drawEmptyCanvas() {
+  const canvas = document.getElementById('hist-canvas');
+  const ctx = canvas.getContext('2d');
+  const W = canvas.offsetWidth, H = canvas.offsetHeight;
+  canvas.width = W; canvas.height = H;
+  ctx.clearRect(0,0,W,H);
+}
+
+function drawHistogram(obs, sims, testType, altType, isRunning) {
+  const canvas = document.getElementById('hist-canvas');
+  const ctx = canvas.getContext('2d');
+  const W = canvas.offsetWidth || 600;
+  const H = canvas.offsetHeight || 300;
+  canvas.width = W;
+  canvas.height = H;
+
+  // Color by test type
+  const colorMap = { bb: '#58a6ff', bw: '#f78166', ww: '#3fb950' };
+  const barColor = colorMap[testType];
+
+  // Bin setup
+  const minV = Math.min(...sims, obs);
+  const maxV = Math.max(...sims, obs);
+  const range = Math.max(maxV - minV, 1);
+  const nBins = Math.max(10, Math.min(40, Math.floor(Math.sqrt(sims.length))));
+  const binW = range / nBins;
+  const bins = Array(nBins + 2).fill(0);
+
+  sims.forEach(v => {
+    const b = Math.min(nBins - 1, Math.floor((v - minV) / binW));
+    bins[b]++;
+  });
+
+  const maxCount = Math.max(...bins);
+
+  // Margins
+  const ml = 52, mr = 24, mt = 20, mb = 48;
+  const cW = W - ml - mr;
+  const cH = H - mt - mb;
+
+  // Background grid
+  ctx.clearRect(0,0,W,H);
+  ctx.strokeStyle = '#1e2530';
+  ctx.lineWidth = 1;
+  for (let g = 0; g <= 4; g++) {
+    const y = mt + cH - (g/4) * cH;
+    ctx.beginPath(); ctx.moveTo(ml, y); ctx.lineTo(ml+cW, y); ctx.stroke();
+    ctx.fillStyle = '#6e7681';
+    ctx.font = '10px JetBrains Mono, monospace';
+    ctx.textAlign = 'right';
+    ctx.fillText(Math.round((g/4)*maxCount), ml - 6, y + 4);
+  }
+
+  // Bars
+  bins.forEach((count, b) => {
+    if (b >= nBins) return;
+    const x = ml + (b / nBins) * cW;
+    const bWidth = (cW / nBins) - 1;
+    const bHeight = (count / maxCount) * cH;
+    const y = mt + cH - bHeight;
+
+    // Shade tail based on altType
+    const binCenter = minV + (b + 0.5) * binW;
+    let shade = false;
+    if (altType === 'greater' && binCenter >= obs) shade = true;
+    if (altType === 'less' && binCenter <= obs) shade = true;
+    if (altType === 'two') {
+      const mean = sims.reduce((a,b)=>a+b,0)/sims.length;
+      const dist = Math.abs(obs - mean);
+      if (Math.abs(binCenter - mean) >= dist) shade = true;
+    }
+
+    ctx.fillStyle = shade ? barColor : (barColor + '55');
+    ctx.fillRect(x, y, bWidth, bHeight);
+
+    // Bar border
+    ctx.strokeStyle = shade ? barColor + 'aa' : barColor + '22';
+    ctx.lineWidth = 0.5;
+    ctx.strokeRect(x, y, bWidth, bHeight);
+  });
+
+  // X axis
+  ctx.strokeStyle = '#444c56';
+  ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(ml, mt+cH); ctx.lineTo(ml+cW, mt+cH); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(ml, mt); ctx.lineTo(ml, mt+cH); ctx.stroke();
+
+  // X axis labels
+  ctx.fillStyle = '#8b949e';
+  ctx.font = '10px JetBrains Mono, monospace';
+  ctx.textAlign = 'center';
+  for (let t = 0; t <= 5; t++) {
+    const val = minV + (t/5) * range;
+    const x = ml + (t/5) * cW;
+    ctx.fillText(Math.round(val), x, mt + cH + 16);
+  }
+
+  // Axis titles
+  ctx.fillStyle = '#6e7681';
+  ctx.font = '10px Noto Sans TC, sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('模擬 ' + testType.toUpperCase() + ' 值', ml + cW/2, H - 6);
+
+  ctx.save();
+  ctx.translate(14, mt + cH/2);
+  ctx.rotate(-Math.PI/2);
+  ctx.fillText('次數', 0, 0);
+  ctx.restore();
+
+  // Normal curve overlay
+  if (sims.length > 20) {
+    const mean = sims.reduce((a,b)=>a+b,0)/sims.length;
+    const sd = Math.sqrt(sims.reduce((a,b)=>a+(b-mean)**2,0)/(sims.length-1));
+    if (sd > 0) {
+      ctx.beginPath();
+      ctx.strokeStyle = '#ffffff30';
+      ctx.lineWidth = 1.5;
+      const norm = (x, m, s) => (1/(s*Math.sqrt(2*Math.PI)))*Math.exp(-0.5*((x-m)/s)**2);
+      const peakNorm = norm(mean, mean, sd);
+      const scale = maxCount / (peakNorm * sims.length * binW);
+      for (let px = 0; px <= cW; px++) {
+        const xVal = minV + (px/cW) * range;
+        const ny = norm(xVal, mean, sd) * sims.length * binW * scale;
+        const cy = mt + cH - (ny / maxCount) * cH;
+        if (px === 0) ctx.moveTo(ml + px, cy);
+        else ctx.lineTo(ml + px, cy);
+      }
+      ctx.stroke();
+    }
+  }
+
+  // Observed value line
+  const obsX = ml + ((obs - minV) / range) * cW;
+  if (obsX >= ml && obsX <= ml+cW) {
+    ctx.beginPath();
+    ctx.strokeStyle = '#ffa657';
+    ctx.lineWidth = 2.5;
+    ctx.setLineDash([6, 3]);
+    ctx.moveTo(obsX, mt);
+    ctx.lineTo(obsX, mt + cH);
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    // Label
+    const lblX = obsX + 6 > ml + cW - 60 ? obsX - 68 : obsX + 6;
+    ctx.fillStyle = '#ffa657';
+    ctx.font = 'bold 10px JetBrains Mono, monospace';
+    ctx.textAlign = 'left';
+    ctx.fillText('T_obs = ' + obs, lblX, mt + 14);
+  }
+
+  // Mean line
+  if (sims.length > 0) {
+    const mean = sims.reduce((a,b)=>a+b,0)/sims.length;
+    const mX = ml + ((mean - minV) / range) * cW;
+    if (mX >= ml && mX <= ml+cW) {
+      ctx.beginPath();
+      ctx.strokeStyle = '#ffffff40';
+      ctx.lineWidth = 1;
+      ctx.setLineDash([3, 3]);
+      ctx.moveTo(mX, mt);
+      ctx.lineTo(mX, mt + cH);
+      ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.fillStyle = '#8b949e';
+      ctx.font = '9px JetBrains Mono, monospace';
+      ctx.textAlign = 'center';
+      ctx.fillText('E[T*]', mX, mt + 28);
+    }
+  }
+
+  // Running indicator
+  if (isRunning) {
+    ctx.fillStyle = '#ffa65780';
+    ctx.font = '11px JetBrains Mono, monospace';
+    ctx.textAlign = 'right';
+    ctx.fillText('模擬中… ' + sims.length + ' 次', ml + cW, mt + 14);
+  } else if (sims.length > 0) {
+    // Legend
+    ctx.fillStyle = barColor;
+    ctx.fillRect(ml + cW - 120, mt + 4, 10, 10);
+    ctx.fillStyle = '#8b949e';
+    ctx.font = '9px Noto Sans TC, monospace';
+    ctx.textAlign = 'left';
+    ctx.fillText('模擬分布 (N=' + sims.length + ')', ml + cW - 106, mt + 13);
+  }
+}
+
+// ══════════════════════════════════════════════
+//  Step tabs
+// ══════════════════════════════════════════════
+function showStep(n) {
+  document.querySelectorAll('.step-pill').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.theory-panel').forEach(p => p.classList.remove('active'));
+  document.querySelector(`[data-step="${n}"]`).classList.add('active');
+  document.getElementById(`step-${n}`).classList.add('active');
+}
+
+// ══════════════════════════════════════════════
+//  Init
+// ══════════════════════════════════════════════
+renderGrid();
+setPreset('clustered');
+
+window.addEventListener('resize', () => {
+  if (simResults.length > 0) {
+    const obs = parseInt(document.getElementById('res-tobs').textContent);
+    const testType = document.getElementById('test-type').value.toLowerCase();
+    const altType = document.getElementById('alt-type').value;
+    drawHistogram(obs, simResults, testType, altType, false);
+  }
+});
+</script>
+</body>
+</html>
